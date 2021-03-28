@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>И.-д.-М. Отель</title>
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+    <div class="container">
+      {"content"}
+    </div>
+  </body>
+</html>
