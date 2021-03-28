@@ -14,11 +14,11 @@ if (!$db->connect->error) {
 
   $table = '';
   $table_rows = '';
-
+  $dataTable = Array();
+  $table_head = '';
   if (!isset($_GET['day'])) {
     $query = New MonthSelectQueryData();
     $dataTable = $query->queryToDataBase(Array("name"=>$_POST["name"], "month"=>$_POST["month"]), $db);
-
     foreach ($dataTable as $tableRow) {
       $table_row = '';
       foreach ($tableRow as $key => $column) {
@@ -31,14 +31,14 @@ if (!$db->connect->error) {
       $table_rows .= '<tr>'.$table_row.'</tr>';
     }
     $table_head = '  <tr>
-                      <th>Смена</th>
-                      <th>Начало смены</th>
-                      <th>Конец смены</th>
-                      <th>Заезд</th>
-                      <th>Генеральная уборка</th>
-                      <th>Текущая уборка</th>
-                      <th>Сумма</th>
-                      <tr>';
+    <th>Смена</th>
+    <th>Начало смены</th>
+    <th>Конец смены</th>
+    <th>Заезд</th>
+    <th>Генеральная уборка</th>
+    <th>Текущая уборка</th>
+    <th>Сумма</th>
+    <tr>';
   } else {
     $query = New DaySelectQueryData();
     $dataTable = $query->queryToDataBase(Array("name"=>$_POST["name"], "day"=>$_GET["day"]), $db);
@@ -50,14 +50,15 @@ if (!$db->connect->error) {
       $table_rows .= '<tr>'.$table_row.'</tr>';
     }
     $table_head = '  <tr>
-                      <th>Номер (корпус)</th>
-                      <th>Тип номера</th>
-                      <th>Тип уборки</th>
-                      <th>Начало уборки</th>
-                      <th>Конец уборки</th>
-                      <th>Оплата</th>
-                      <tr>';
+    <th>Номер (корпус)</th>
+    <th>Тип номера</th>
+    <th>Тип уборки</th>
+    <th>Начало уборки</th>
+    <th>Конец уборки</th>
+    <th>Оплата</th>
+    <tr>';
   }
+
   $table = '<table class="datasheet">'
             .$table_head
             .$table_rows.
