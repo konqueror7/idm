@@ -45,7 +45,11 @@ if (!$db->connect->error) {
     foreach ($dataTable as $tableRow) {
       $table_row = '';
       foreach ($tableRow as $key => $column) {
-        $table_row .= '<td>'.$column.'</td>';
+        if ($column !='' || !is_null($column)) {
+          $table_row .= '<td>'.$column.'</td>';
+        } else {
+          $table_row .= '<td> Нет данных </td>';
+        }
       }
       $table_rows .= '<tr>'.$table_row.'</tr>';
     }
