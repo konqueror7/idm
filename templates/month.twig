@@ -17,7 +17,7 @@
         {% for day in month %}
           <tr>
             {% if day.Work_shift != 'Total' %}
-              <td><a href="{{ day.Work_shift }}">{{ day.Work_shift }}</a></td>
+              <td><a href="?day={{ day.Work_shift }}">{{ day.Work_shift }}</a></td>
             {% else %}
               <td>{{ day.Work_shift }}</td>
             {% endif %}

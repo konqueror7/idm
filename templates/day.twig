@@ -2,4 +2,25 @@
 
 {% block content %}
   <h3>This day table </h3>
+  <table class="datasheet">
+    <tbody>
+      <tr>
+        <th>Номер (корпус)</th>
+        <th>Тип номера</th>
+        <th>Тип уборки</th>
+        <th>Начало уборки</th>
+        <th>Конец уборки</th>
+        <th>Оплата</th>
+      </tr>
+      {% if day %}
+          {% for task in day %}
+          <tr>
+            {% for column in task %}
+              <td>{{ column }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+      {% endif %}
+    </tbody>
+  </table>
 {% endblock %}
