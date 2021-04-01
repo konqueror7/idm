@@ -16,17 +16,13 @@
       {% if month %}
         {% for day in month %}
           <tr>
-            {% if day.Work_shift != 'Total' %}
-              <td><a href="?day={{ day.Work_shift }}">{{ day.Work_shift }}</a></td>
-            {% else %}
-              <td>{{ day.Work_shift }}</td>
-            {% endif %}
-            <td>{{ day.begin_work_day }}</td>
-            <td>{{ day.end_work_day }}</td>
-            <td>{{ day.check_in }}</td>
-            <td>{{ day.general }}</td>
-            <td>{{ day.current }}</td>
-            <td>{{ day.Full_Price }}</td>
+            {% for key in day|keys %}
+              {% if key != 'Work_shift' or day[key] == 'Total' %}
+                <td>{{ day[key] }}</td>
+              {% else %}
+                <td><a href="?day={{ day[key] }}">{{ day[key] }}</a></td>
+              {% endif %}
+            {% endfor %}
           </tr>
         {% endfor %}
       {% endif %}

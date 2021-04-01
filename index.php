@@ -35,6 +35,8 @@ try {
       'debug' => true,
       'cache' => false
   ]);
+  $twig->addExtension(new \Twig\Extension\DebugExtension());
+
   if (isset($dataTableDay)) {
     echo $twig->render('day.twig', ['day' => $dataTableDay]);
   } elseif (isset($dataTableMonth)) {
