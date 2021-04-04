@@ -10,7 +10,15 @@ $db = New DataBaseConnect();
 $_POST["name"] = 'Чистых Елена';
 $_POST["month"] = '09';
 
+$path = ltrim($_SERVER['REQUEST_URI'], '/');
 
+if (!empty($path)) {
+  if (\preg_match('/([0-9-]{2}\-)([0-9-]{2}\-)([0-9-]{4})$/', $path)) {
+    $_POST['day']=$path;
+  } else {
+    \header('Location: http://' . $_SERVER['HTTP_HOST']);
+  }
+}
 
 if (!$db->connect->error) {
 
@@ -18,12 +26,12 @@ if (!$db->connect->error) {
   $table_rows = '';
   $dataTable = Array();
   $table_head = '';
-  if (!isset($_GET['day'])) {
+  if (!isset($_POST['day'])) {
     $query = New MonthSelectQueryData();
     $dataTableMonth = $query->queryToDataBase(Array("name"=>$_POST["name"], "month"=>$_POST["month"]), $db);
   } else {
     $query = New DaySelectQueryData();
-    $dataTableDay = $query->queryToDataBase(Array("name"=>$_POST["name"], "day"=>$_GET["day"]), $db);
+    $dataTableDay = $query->queryToDataBase(Array("name"=>$_POST["name"], "day"=>$_POST["day"]), $db);
   }
 }
 

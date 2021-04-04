@@ -20,7 +20,7 @@
               {% if key != 'Work_shift' or day[key] == 'Total' %}
                 <td>{{ day[key] }}</td>
               {% else %}
-                <td><a href="?day={{ day[key] }}">{{ day[key] }}</a></td>
+                <td><a href="{{ day[key] }}">{{ day[key] }}</a></td>
               {% endif %}
             {% endfor %}
           </tr>
