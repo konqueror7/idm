@@ -8,6 +8,15 @@ $db = New DataBaseConnect();
 $_POST["name"] = 'Чистых Елена';
 $_POST["month"] = '09';
 
+$path = ltrim($_SERVER['REQUEST_URI'], '/');
+
+if (!empty($path)) {
+  if (\preg_match('/([0-9-]{2}\-)([0-9-]{2}\-)([0-9-]{4})$/', $path)) {
+    $_POST['day']=$path;
+  } else {
+    \header('Location: http://' . $_SERVER['HTTP_HOST']);
+  }
+}
 
 
 if (!$db->connect->error) {
@@ -16,14 +25,14 @@ if (!$db->connect->error) {
   $table_rows = '';
   $dataTable = Array();
   $table_head = '';
-  if (!isset($_GET['day'])) {
+  if (!isset($_POST['day'])) {
     $query = New MonthSelectQueryData();
     $dataTable = $query->queryToDataBase(Array("name"=>$_POST["name"], "month"=>$_POST["month"]), $db);
     foreach ($dataTable as $tableRow) {
       $table_row = '';
       foreach ($tableRow as $key => $column) {
         if ($key=='Work_shift' && $column != 'Total') {
-          $table_row .= '<td><a href="?day='.$column.'">'.$column.'</a></td>';
+          $table_row .= '<td><a href="'.$column.'">'.$column.'</a></td>';
         } else {
           $table_row .= '<td>'.$column.'</td>';
         }
@@ -41,7 +50,7 @@ if (!$db->connect->error) {
     <tr>';
   } else {
     $query = New DaySelectQueryData();
-    $dataTable = $query->queryToDataBase(Array("name"=>$_POST["name"], "day"=>$_GET["day"]), $db);
+    $dataTable = $query->queryToDataBase(Array("name"=>$_POST["name"], "day"=>$_POST["day"]), $db);
     foreach ($dataTable as $tableRow) {
       $table_row = '';
       foreach ($tableRow as $key => $column) {
